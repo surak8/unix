@@ -197,48 +197,70 @@ namespace NSLS {
 		public bool directories { get { return options.showDirectories; } }
 		public bool longListing { get { return options.longListing; } }
 		public bool recursive { get { return options.recursive; } }
-		#endregion
+        #endregion
 
-		public void findFiles(string szDir) {
-			int n1,n2;
-			string szBaseDir,szWildcard;
-			string[] aszFiles;
-			int len;
+        public void findFiles(string szDir) {
+            int n1, n2;
+            string szBaseDir, szWildcard;
+            string[] aszFiles, szDirs;
+            int len;
 
-			if (string.IsNullOrEmpty(szDir))
-				throw new ArgumentNullException("szDir","path is null!");
+            if (string.IsNullOrEmpty(szDir))
+                throw new ArgumentNullException("szDir", "path is null!");
 
-			if ((n1=szDir.IndexOf('*'))>=0||
-				(n2=szDir.IndexOf('?'))>=0) {
-				if (string.IsNullOrEmpty(szBaseDir=Path.GetDirectoryName(szDir))) {
-					szBaseDir=Path.GetFullPath(".");
-					szWildcard=szDir;
-				} else
-					szWildcard=szDir.Substring(szBaseDir.Length+1);
-			} else {
-				szBaseDir=szDir;
-				szWildcard="*.*";
-			}
-			if (!Directory.Exists(szBaseDir)) {
+            if ((n1 = szDir.IndexOf('*')) >= 0 ||
+                (n2 = szDir.IndexOf('?')) >= 0) {
+                if (string.IsNullOrEmpty(szBaseDir = Path.GetDirectoryName(szDir))) {
+                    szBaseDir = Path.GetFullPath(".");
+                    szWildcard = szDir;
+                } else
+                    szWildcard = szDir.Substring(szBaseDir.Length + 1);
+            } else {
+                szBaseDir = szDir;
+                szWildcard = "*.*";
+            }
+            if (!Directory.Exists(szBaseDir)) {
 #if true
-				Console.Error.WriteLine("non-existent directory: {0}",szBaseDir);
+                Console.Error.WriteLine("non-existent directory: {0}", szBaseDir);
 #else
 				throw new DirectoryNotFoundException(string.Format("non-existent directory: {0}",szBaseDir));
 #endif
-			} else {
-				if (options.showDirectories)
-					entries.Add(new LSFileInfo(new DirectoryInfo(szBaseDir)));
-				if ((aszFiles=Directory.GetFiles(szBaseDir,szWildcard,recursive?SearchOption.AllDirectories:SearchOption.TopDirectoryOnly))!=null) {
-					foreach (string file in aszFiles) {
-						if (maxLen<(len=file.Length))
-							maxLen=len;
-						entries.Add(new LSFileInfo(new FileInfo(file)));
-					}
-				}
-			}
-		}
+            } else {
+                if (options.showDirectories)
+                    entries.Add(new LSFileInfo(new DirectoryInfo(szBaseDir)));
+#if true
+                try {
+                    if ((szDirs = Directory.GetDirectories(szBaseDir)) != null && szDirs.Length > 0)
+                        //                        {
+                        foreach (string szDir0 in szDirs)
+                            //                            {
+                            findFiles(szDir0);
+                    //                    }
+                } catch (Exception ex) {
+                    Trace.WriteLine(ex.Message);
+                }
+                //            }
+#else
+                try {
+                    if ((szDirs = Directory.GetDirectories(szBaseDir)) != null && szDirs.Length > 0) {
+                        foreach(string szDir0 in szDirs) {
+                            if ((aszFiles = Directory.GetFiles(szDir0, szWildcard, recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly)) != null) {
+                                foreach (string file in aszFiles) {
+                                    if (maxLen < (len = file.Length))
+                                        maxLen = len;
+                                    entries.Add(new LSFileInfo(new FileInfo(file)));
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception ex) {
+                    Trace.WriteLine(ex.Message);
+                }
+#endif
+            }
+        }
 
-		public int sortBySize(LSFileInfo lsfi1,LSFileInfo lsfi2) {
+        public int sortBySize(LSFileInfo lsfi1,LSFileInfo lsfi2) {
 			int rc=0;
 			FileInfo fi1,fi2;
 

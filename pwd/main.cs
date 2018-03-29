@@ -6,8 +6,8 @@ using System.Reflection;
 [assembly:AssemblyProduct("pwd")]
 [assembly:AssemblyTitle("pwd")]
 [assembly:AssemblyVersion("1.0.0.0")]
-[assembly:AssemblyCompany("Phibro Inc.")]
-[assembly:AssemblyCopyright("Copyright(c) 2005,Phibro Inc.")]
+[assembly:AssemblyCompany("Rik Cousens")]
+[assembly:AssemblyCopyright("Copyright(c) 2005-2018, Rik Cousens")]
 #if DEBUG
 	[assembly:AssemblyConfiguration("Debug version")]
 #else

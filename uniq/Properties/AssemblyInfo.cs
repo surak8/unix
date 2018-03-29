@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Description of uniq.")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyCompany("Phibro LLC.")]
+[assembly: AssemblyCompany("Rik Cousens")]
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug version")]
 #else

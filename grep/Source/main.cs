@@ -15,7 +15,7 @@ using System.Text;
 [assembly:AssemblyFileVersion("1.0.0.1")]
 [assembly:AssemblyInformationalVersion("1.0.0.1")]
 [assembly:AssemblyCompany("Rik Cousens")]
-[assembly:AssemblyCopyright("Copyright(c) 2005, Rik Cousens")]
+[assembly:AssemblyCopyright("Copyright(c) 2005-2018, Rik Cousens")]
 [assembly:AssemblyDescription("unix 'grep' utility, implemented in .Net.")]
 #if DEBUG
 	[assembly:AssemblyConfiguration("Debug version")]

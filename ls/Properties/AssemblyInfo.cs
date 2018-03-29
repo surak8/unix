@@ -9,8 +9,8 @@ using System.Runtime.CompilerServices;
 #else
 [assembly: AssemblyConfiguration("release version")]
 #endif
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCompany("Rik Cousens")]
+[assembly: AssemblyCopyright("Copyright 2005-2018, Rik Cousens")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
 
