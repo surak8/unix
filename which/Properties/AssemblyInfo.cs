@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: AssemblyCompany("Rik Cousens")]
 [assembly: AssemblyDescription("description of which here.")]
-[assembly: AssemblyCopyright("Copyright(c) 2007-2018, Rik Cousens")]
+[assembly: AssemblyCopyright("Copyright(c) 2007-2025, Rik Cousens")]
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug version")]
 #else
